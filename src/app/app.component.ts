@@ -22,7 +22,7 @@ export class AppComponent {
     }
 
     const guessResult = this.compareWord(currentGuess.toUpperCase(), this.correctWord.toUpperCase());
-    if (guessResult.numOfCows != 3) {
+    if (guessResult.numOfBulls != 3) {
       this.guessHistory.push(guessResult);
     }else{
       this.score++;
