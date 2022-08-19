@@ -23,6 +23,9 @@ export class AppComponent {
 
     const guessResult = this.compareWord(currentGuess.toUpperCase(), this.correctWord.toUpperCase());
     if (guessResult.numOfBulls != 3) {
+      if (this.guessHistory.length >=4) {
+      this.guessHistory.shift();
+      }
       this.guessHistory.push(guessResult);
     }else{
       this.score++;
@@ -37,17 +40,28 @@ export class AppComponent {
    let numOfCows = 0;
    let numOfBulls = 0;
 
+  // check for bulls
    charArrToCompare.forEach((compareChar,x) => {
-     charArrCorrectWord.forEach((correctChar, y) => {
-       // If the character is in the word
-       if ((correctChar === compareChar) && (x == y)) {
-         charArrCorrectWord[x] = '#';
-         numOfBulls++
-       }else if (correctChar == compareChar && correctChar != '#') {
-         numOfCows++;
-       }
-     })
+     if (charArrCorrectWord[x] == compareChar) {
+       numOfBulls++;
+       charArrCorrectWord[x] = '#';
+       charArrToCompare[x] = '#';
+
+     }
    });
+
+     // check for cows
+     charArrToCompare.forEach((compareChar, x) => {
+       charArrCorrectWord.forEach(correctChar => {
+         // Make sure not a bull
+          if (compareChar != '#' && correctChar != '#') {
+            if (compareChar == correctChar) {
+              numOfCows++;
+            }
+          }
+       })
+     });
+
    return new GuessResult(wordToCompare, numOfBulls, numOfCows);
   }
 

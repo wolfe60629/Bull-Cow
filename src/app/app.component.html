@@ -6,8 +6,8 @@
 
 <div style="text-align: center; padding-bottom: 20px; padding-top: 50px;">
 
-    <input (keyup.enter)="this.guessWord()" pInputText placeholder="Enter Guess..." maxlength="3" #guessInput>
-    <button pButton (click)="this.guessWord()" >Submit</button>
+    <input (keyup.enter)="this.guessWord(); guessInput.value = '';" pInputText placeholder="Enter Guess..." maxlength="3" minlength="3" #guessInput>
+    <button pButton (click)="this.guessWord(); guessInput.value = '';" >Submit</button>
 
   <h3>SCORE: {{this.score}}</h3>
 
