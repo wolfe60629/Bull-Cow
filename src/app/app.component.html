@@ -6,28 +6,34 @@
 
 <div style="text-align: center; padding-bottom: 20px; padding-top: 50px;">
 
-    <input  (keyup.enter)="this.guessWord()" pInputText placeholder="Enter Guess..." #guessInput>
+    <input (keyup.enter)="this.guessWord()" pInputText placeholder="Enter Guess..." maxlength="3" #guessInput>
     <button pButton (click)="this.guessWord()" >Submit</button>
 
-  <h4>SCORE: {{this.score}}</h4>
+  <h3>SCORE: {{this.score}}</h3>
 
 </div>
 
-
+<div *ngIf="guessHistory.length > 0">
   <h2>Guess History</h2>
-<p-accordion>
-
-</p-accordion>
-<div class= "cards" style="">
-  <p-card class = "card" *ngFor="let guess of this.guessHistory" class = "history_entry">
-    <div class = "p-card-title">
-      {{guess.guess}}
-    </div>
+  <div class= "cards" style="">
+    <p-card class = "card" *ngFor="let guess of this.guessHistory" class = "history_entry">
+      <div class = "p-card-title">
+        {{guess.guess}}
+      </div>
       <div class="p-card-body">
         <h2>
-            <span style="color: green;"> Bulls: {{guess.numOfBulls}}</span><br/>
-            <span style="color: red;"> Cows: {{guess.numOfCows}}</span>
+          <span style="color: green;"> Bulls: {{guess.numOfBulls}}</span><br/>
+          <span style="color: red;"> Cows: {{guess.numOfCows}}</span>
         </h2>
       </div>
-  </p-card>
+    </p-card>
+  </div>
+</div>
+
+<div *ngIf="guessHistory.length == 0" style="text-align: center;">
+  <h3>GAME RULES</h3>
+  <p style="">A random word will be selected. Your goal is to guess the word correctly by submitting other words and analysing the clues. <br>
+    If there are similar letters in incorrect spots there will be a cow.
+  If there are similar letters in correct spots there will be a bull.</p>
+
 </div>
