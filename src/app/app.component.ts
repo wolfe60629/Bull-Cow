@@ -33,16 +33,17 @@ export class AppComponent {
 
   compareWord(wordToCompare: String, correctWord: String): GuessResult {
    const charArrToCompare = wordToCompare.split('');
-   const charArrCorrectWord = correctWord.split('');
+   let charArrCorrectWord = correctWord.split('');
    let numOfCows = 0;
    let numOfBulls = 0;
 
    charArrToCompare.forEach((compareChar,x) => {
      charArrCorrectWord.forEach((correctChar, y) => {
        // If the character is in the word
-       if (correctChar === compareChar && x == y) {
+       if ((correctChar === compareChar) && (x == y)) {
+         charArrCorrectWord[x] = '#';
          numOfBulls++
-       }else if (correctChar == compareChar) {
+       }else if (correctChar == compareChar && correctChar != '#') {
          numOfCows++;
        }
      })
