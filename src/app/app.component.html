@@ -20,18 +20,14 @@
 </p-accordion>
 <div class= "cards" style="">
   <p-card class = "card" *ngFor="let guess of this.guessHistory" class = "history_entry">
-    <ng-container *ngIf="guess.result === 'COW'">
-      <div class="p-card-title" style="color: green;">
-        {{guess.result}}
-      </div>
-    </ng-container>
-    <ng-container *ngIf="guess.result === 'BULL'">
-      <div class="p-card-title" style="color: red;">
-        {{guess.result}}
-      </div>
-    </ng-container>
-    <div class = "p-card-body">
+    <div class = "p-card-title">
       {{guess.guess}}
     </div>
+      <div class="p-card-body">
+        <h2>
+            <span style="color: green;"> Bulls: {{guess.numOfBulls}}</span><br/>
+            <span style="color: red;"> Cows: {{guess.numOfCows}}</span>
+        </h2>
+      </div>
   </p-card>
 </div>

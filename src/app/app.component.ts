@@ -22,7 +22,7 @@ export class AppComponent {
     }
 
     const guessResult = this.compareWord(currentGuess.toUpperCase(), this.correctWord.toUpperCase());
-    if (guessResult.result != "CORRECT") {
+    if (guessResult.numOfCows != 3) {
       this.guessHistory.push(guessResult);
     }else{
       this.score++;
@@ -34,19 +34,20 @@ export class AppComponent {
   compareWord(wordToCompare: String, correctWord: String): GuessResult {
    const charArrToCompare = wordToCompare.split('');
    const charArrCorrectWord = correctWord.split('');
-   let result = "BULL";
+   let numOfCows = 0;
+   let numOfBulls = 0;
 
    charArrToCompare.forEach((compareChar,x) => {
-     if (charArrCorrectWord[x] === compareChar){
-       // you have a cow
-       result  = "COW"
-     }
+     charArrCorrectWord.forEach((correctChar, y) => {
+       // If the character is in the word
+       if (correctChar === compareChar && x == y) {
+         numOfBulls++
+       }else if (correctChar == compareChar) {
+         numOfCows++;
+       }
+     })
    });
-
-    if (wordToCompare === correctWord) {
-      result = "CORRECT"
-    }
-   return new GuessResult(wordToCompare, result);
+   return new GuessResult(wordToCompare, numOfBulls, numOfCows);
   }
 
   randomIntFromInterval(min: number, max: number) { // min and max included
@@ -57,11 +58,13 @@ export class AppComponent {
 
 
 class GuessResult {
-  result: String = "";
   guess: String = "";
+  numOfBulls: number= 0;
+  numOfCows: number = 0;
 
-  constructor(guess: String, result: String) {
-    this.result = result;
+  constructor(guess: String, numofBulls: number, numOfCows: number) {
+    this.numOfBulls = numofBulls;
+    this.numOfCows = numOfCows;
     this.guess = guess;
   }
 }
