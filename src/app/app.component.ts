@@ -24,9 +24,9 @@ export class AppComponent {
     const guessResult = this.compareWord(currentGuess.toUpperCase(), this.correctWord.toUpperCase());
     if (guessResult.numOfBulls != 3) {
       if (this.guessHistory.length >=4) {
-      this.guessHistory.shift();
+      this.guessHistory.pop();
       }
-      this.guessHistory.push(guessResult);
+      this.guessHistory.unshift(guessResult);
     }else{
       this.score++;
       this.correctWord = WordList.wordList[this.randomIntFromInterval(0, WordList.wordList.length -1)];;
