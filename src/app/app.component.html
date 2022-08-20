@@ -1,17 +1,31 @@
-<div style = "display:inline-flex; justify-content: center; width:100%;">
+<div *ngIf="guessHistory.length == 0" style = "display:inline-flex; justify-content: center; width:100%; margin-bottom: 10px;">
   <h1 style = "font-size: 60px;;">Bull </h1>
   <img src = "assets/logo.png" height="150" width="150">
   <h1 style = "font-size: 60px"> Cow</h1>
 </div>
 
-<div style="text-align: center; padding-bottom: 20px; padding-top: 50px;">
 
+<div *ngIf="!isGameStarted" style="text-align: center;">
+  <h3>GAME RULES</h3>
+  <p style="">A random word will be selected. Your goal is to guess the word correctly by submitting other <br>
+    words and analysing the clues. If your guess contains correct letters in incorrect spots there<br>  will be a cow.
+    If your guess contains correct letters in correct spots there will be a bull. <br>
+    Good Luck!
+  </p>
+
+  <button pButton (click)="isGameStarted=true;">Start a New Game!</button>
+</div>
+
+<div *ngIf="isGameStarted">
+  <div style="text-align: center; padding-bottom: 20px; padding-top: 50px;">
     <input (keyup.enter)="this.guessWord(); guessInput.value = '';" pInputText placeholder="Enter Guess..." maxlength="3" minlength="3" #guessInput>
     <button pButton (click)="this.guessWord(); guessInput.value = '';" >Submit</button>
-
-  <h3>SCORE: {{this.score}}</h3>
-
+    <h3>{{this.guessCountRemaining}} Turn(s) Left</h3>
+    <h3>SCORE: {{this.score}}</h3>
+  </div>
 </div>
+
+
 
 <div *ngIf="guessHistory.length > 0">
   <h2>Guess History</h2>
@@ -30,10 +44,4 @@
   </div>
 </div>
 
-<div *ngIf="guessHistory.length == 0" style="text-align: center;">
-  <h3>GAME RULES</h3>
-  <p style="">A random word will be selected. Your goal is to guess the word correctly by submitting other words and analysing the clues. <br>
-    If there are similar letters in incorrect spots there will be a cow.
-  If there are similar letters in correct spots there will be a bull.</p>
 
-</div>

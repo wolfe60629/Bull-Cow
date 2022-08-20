@@ -13,6 +13,8 @@ export class AppComponent {
   guessHistory: GuessResult[] = [];
   score: number = 0;
   correctWord = WordList.wordList[this.randomIntFromInterval(0, WordList.wordList.length -1)];
+  isGameStarted: boolean = false;
+  guessCountRemaining: number = 7;
 
   guessWord() {
     console.log(this.correctWord);
@@ -27,8 +29,20 @@ export class AppComponent {
       this.guessHistory.pop();
       }
       this.guessHistory.unshift(guessResult);
+      this.guessCountRemaining--;
+
+      //reset
+      if (this.guessCountRemaining ==0) {
+        this.score = 0;
+        this.guessCountRemaining = 7;
+        this.correctWord = WordList.wordList[this.randomIntFromInterval(0, WordList.wordList.length -1)];;
+        this.guessHistory = [];
+        this.isGameStarted = false;
+      }
+
     }else{
       this.score++;
+      this.guessCountRemaining += 7;
       this.correctWord = WordList.wordList[this.randomIntFromInterval(0, WordList.wordList.length -1)];;
       this.guessHistory = [];
     }
